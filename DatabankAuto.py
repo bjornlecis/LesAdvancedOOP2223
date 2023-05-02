@@ -12,7 +12,8 @@ def toon_menu():
     print("1: toon alle wagen")
     print("2: alle beschikbare merken")
     print("3: alle wagen jonger dan bouwjaar")
-    print("4: voeg eens wagen toe")
+    print("4: voeg een wagen toe")
+    print("5: verwijder een wagen")
 
 def toon_alle_wagens():
     mycursor = db.cursor()
@@ -44,6 +45,14 @@ def voeg_een_wagen_toe():
     print("record toegevoegd")
     db.commit()
 
+def verwijder_een_auto():
+    toon_alle_wagens()
+    wagen_id = input("geef het id van de wagen die je wenst te verwijderen")
+    mycursor = db.cursor()
+    sql = f"delete from auto where idauto = {wagen_id}"
+    mycursor.execute(sql)
+    print("wagen verwijderd")
+    db.commit()
 ########################################"
 #Hoofdprogramma
 ########################################
@@ -59,5 +68,7 @@ while invoer != "stop":
         toon_alle_wagens_vanaf_bouwjaar()
     elif invoer == "4":
         voeg_een_wagen_toe()
+    elif invoer == "5":
+        verwijder_een_auto()
     toon_menu()
     invoer = input("geef je opdracht")
